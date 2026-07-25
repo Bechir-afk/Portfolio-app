@@ -1,11 +1,11 @@
 import { type ClassValue, clsx } from 'clsx';
 
 /**
- * Merges class names. Uses clsx for conditional logic.
- * Install clsx: npm install clsx  (add to package.json when needed)
+ * Merges Tailwind class names with conditional logic support.
+ * Accepts any number of class values, arrays, or objects.
  */
 export function cn(...inputs: ClassValue[]): string {
-  return clsx(inputs);
+  return clsx(...inputs);
 }
 
 /**
@@ -16,7 +16,8 @@ export function clamp(value: number, min: number, max: number): number {
 }
 
 /**
- * Maps a value from one range to another.
+ * Maps a value from one numeric range to another.
+ * Used for parallax depth calculations.
  */
 export function mapRange(
   value: number,
