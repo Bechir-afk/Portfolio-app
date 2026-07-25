@@ -1,0 +1,178 @@
+{
+  "hero": {
+    "name": "Bechir Ben Rabia",
+    "location": "Tunis, Tunisie",
+    "title": {
+      "student": "\u00c9tudiant en G\u00e9nie Informatique",
+      "freelance": "D\u00e9veloppeur Freelance le Jour",
+      "gamer": "Gamer la Nuit"
+    }
+  },
+  "languageToggle": {
+    "label": "Changer de langue",
+    "current": "FR"
+  },
+  "quote": {
+    "text": "En th\u00e9orie, la th\u00e9orie et la pratique sont identiques. En pratique, elles ne le sont pas."
+  },
+  "about": {
+    "heading": "\u00c0 propos",
+    "summary": "\u00c9tudiant en G\u00e9nie Informatique sp\u00e9cialis\u00e9 en IoT et Syst\u00e8mes Embarqu\u00e9s \u00e0 la Facult\u00e9 des Sciences de Tunis. D\u00e9veloppeur freelance avec une exp\u00e9rience concr\u00e8te en flux IA, d\u00e9veloppement web full-stack, infrastructure cloud et syst\u00e8mes embarqu\u00e9s.",
+    "spokenLanguages": "Langues"
+  },
+  "skills": {
+    "heading": "Comp\u00e9tences",
+    "categories": {
+      "languages": "Langages de Programmation",
+      "ai": "IA & Agents",
+      "embedded": "Embarqu\u00e9 & IoT",
+      "frontend": "Frontend",
+      "backend": "Backend & Bases de Donn\u00e9es",
+      "cloud": "Cloud & DevOps",
+      "security": "S\u00e9curit\u00e9 & R\u00e9seaux"
+    }
+  },
+  "experience": {
+    "heading": "Exp\u00e9rience",
+    "nextStepIT": {
+      "description": "Stage de projet de fin d\u2019\u00e9tudes chez NEXT STEP IT. D\u00e9veloppement de vMigrate \u2014 un syst\u00e8me pr\u00e9dictif de migration de VM utilisant XGBoost et SHAP pour l\u2019explicabilit\u00e9, d\u00e9ploy\u00e9 sur OpenShift avec KubeVirt, avec une interface React + FastAPI."
+    },
+    "upwork": {
+      "description": "D\u00e9veloppeur full-stack freelance sur Upwork. Livraison de projets clients avec React, Vite, TanStack, Tailwind CSS, Flask, Django et PHP."
+    },
+    "triWeb": {
+      "description": "Stage d\u2019\u00e9t\u00e9 chez TriWeb (Charguia 2). Exp\u00e9rience pratique dans un environnement de d\u00e9veloppement professionnel."
+    }
+  },
+  "leadership": {
+    "heading": "Leadership",
+    "ieee": {
+      "description": "Pr\u00e9sident du chapitre IEEE MTTS \u00e0 la branche \u00e9tudiante ESPRIT, responsable de l\u2019organisation d\u2019\u00e9v\u00e9nements techniques et d\u2019ateliers."
+    },
+    "gdsc": {
+      "description": "Responsable marketing et membre actif du GDSC FSS et GDSC FST, promotion des \u00e9v\u00e9nements de la communaut\u00e9 des d\u00e9veloppeurs."
+    },
+    "volunteer": {
+      "description": "B\u00e9n\u00e9vole communautaire avec Alert International, JCI, Youth Club et Spark Engineer ENIS."
+    }
+  },
+  "education": {
+    "heading": "Formation",
+    "fst": {
+      "description": "Licence en G\u00e9nie Informatique avec sp\u00e9cialisation en IoT et Syst\u00e8mes Embarqu\u00e9s."
+    },
+    "lycee": {
+      "description": "Baccalaur\u00e9at en Informatique."
+    }
+  },
+  "awards": {
+    "heading": "R\u00e9compenses"
+  },
+  "projects": {
+    "heading": "Projets",
+    "filters": {
+      "all": "Tous",
+      "iot": "IoT",
+      "aiml": "IA / ML",
+      "fullstack": "Full-Stack",
+      "tools": "Outils",
+      "devops": "DevOps / Cloud"
+    },
+    "portfolio-app": {
+      "description": "Site portfolio personnel con\u00e7u avec Next.js, TypeScript, GSAP et Framer Motion. Page unique, bilingue (EN/FR) et enti\u00e8rement responsive.",
+      "bannerAlt": "Banni\u00e8re du projet Portfolio App"
+    },
+    "sentinel-ai": {
+      "description": "Moteur de triage aliment\u00e9 par l\u2019IA, \u00e9crit en Go. Classifie et priorise automatiquement les contenus de faible qualit\u00e9 pour les pipelines de r\u00e9vision.",
+      "bannerAlt": "Banni\u00e8re du projet Sentinel AI"
+    },
+    "templatr": {
+      "description": "Outil Python pour g\u00e9n\u00e9rer des mod\u00e8les de documents pr\u00eats \u00e0 imprimer en grande quantit\u00e9. Prend en charge le traitement par lots et les mises en page personnalisables.",
+      "bannerAlt": "Banni\u00e8re du projet Templatr"
+    },
+    "bookhaven": {
+      "description": "Application web full-stack pour la d\u00e9couverte et la gestion de livres, con\u00e7ue en HTML, CSS et JavaScript natifs.",
+      "bannerAlt": "Banni\u00e8re du projet BookHaven"
+    },
+    "phishguard": {
+      "description": "Outil de d\u00e9tection de phishing et de sensibilisation bas\u00e9 sur navigateur. Aide les utilisateurs \u00e0 identifier et \u00e9viter les liens malveillants.",
+      "bannerAlt": "Banni\u00e8re du projet PhishGuard"
+    },
+    "pfa-attendees": {
+      "description": "Syst\u00e8me de pr\u00e9sence IoT bas\u00e9 sur ESP32 pour les \u00e9v\u00e9nements acad\u00e9miques. Utilise du mat\u00e9riel embarqu\u00e9, des capteurs et la journalisation de donn\u00e9es en temps r\u00e9el.",
+      "bannerAlt": "Banni\u00e8re du projet PFA Attendees System"
+    },
+    "smart-street-lighting": {
+      "description": "Syst\u00e8me d\u2019\u00e9clairage urbain intelligent utilisant ESP32 et MQTT. L\u2019\u00e9clairage s\u2019adapte aux conditions ambiantes et \u00e0 la d\u00e9tection de mouvement.",
+      "bannerAlt": "Banni\u00e8re du projet Smart Street Lighting"
+    },
+    "ieee-badge-writer": {
+      "description": "Outil C#/.NET pour la cr\u00e9ation et la gestion des badges d\u2019\u00e9v\u00e9nements IEEE. Fork avec contributions pour la branche \u00e9tudiante IEEE ESPRIT.",
+      "bannerAlt": "Banni\u00e8re du projet IEEE Badge Writer"
+    },
+    "vmigrate": {
+      "description": "Syst\u00e8me pr\u00e9dictif de migration de machines virtuelles utilisant XGBoost et SHAP pour l\u2019explicabilit\u00e9. D\u00e9ploy\u00e9 sur OpenShift avec KubeVirt et une interface React + FastAPI.",
+      "bannerAlt": "Banni\u00e8re du projet vMigrate"
+    },
+    "math-genius": {
+      "description": "Plateforme d\u2019apprentissage des math\u00e9matiques full-stack con\u00e7ue avec React, Vite, TanStack, Tailwind CSS et Flask. Livr\u00e9 en tant que projet freelance.",
+      "bannerAlt": "Banni\u00e8re du projet Math Genius"
+    }
+  },
+  "certificates": {
+    "heading": "Certificats",
+    "modalClose": "Fermer le certificat",
+    "nvidia-deep-learning": {
+      "title": "Fondamentaux du Deep Learning",
+      "issuer": "NVIDIA"
+    },
+    "nmap-vulnerability": {
+      "title": "Analyse de vuln\u00e9rabilit\u00e9s avec Nmap",
+      "issuer": "Coursera"
+    },
+    "cpp-encryption": {
+      "title": "Chiffrement et d\u00e9chiffrement avec C++",
+      "issuer": "Coursera"
+    },
+    "cisco-networking-basics": {
+      "title": "Bases des r\u00e9seaux",
+      "issuer": "Cisco"
+    },
+    "cisco-cybersecurity-intro": {
+      "title": "Introduction \u00e0 la cybars\u00e9curit\u00e9",
+      "issuer": "Cisco"
+    },
+    "cisco-iot-intro": {
+      "title": "Introduction \u00e0 l\u2019IoT",
+      "issuer": "Cisco"
+    },
+    "aws-route53": {
+      "title": "Cr\u00e9ation de politiques de routage avec AWS Route53",
+      "issuer": "Coursera"
+    },
+    "aws-vpc": {
+      "title": "Cr\u00e9er un Cloud Priv\u00e9 Virtuel avec AWS",
+      "issuer": "Coursera"
+    },
+    "linux-terminal": {
+      "title": "D\u00e9buter avec le terminal Linux",
+      "issuer": "Coursera"
+    },
+    "python-devops": {
+      "title": "Scripting Python pour DevOps",
+      "issuer": "Coursera"
+    },
+    "google-css": {
+      "title": "Apprendre le CSS",
+      "issuer": "Google Developer Program"
+    }
+  },
+  "contact": {
+    "heading": "Contact",
+    "github": "Voir GitHub",
+    "linkedin": "Voir LinkedIn",
+    "email": "Envoyer un e-mail",
+    "phone": "Appeler",
+    "facebook": "Voir Facebook"
+  }
+}

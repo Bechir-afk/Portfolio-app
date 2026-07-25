@@ -1,0 +1,178 @@
+{
+  "hero": {
+    "name": "Bechir Ben Rabia",
+    "location": "Tunis, Tunisia",
+    "title": {
+      "student": "Computer Engineering Student",
+      "freelance": "Freelance Developer by Day",
+      "gamer": "Gamer by Night"
+    }
+  },
+  "languageToggle": {
+    "label": "Switch language",
+    "current": "EN"
+  },
+  "quote": {
+    "text": "In theory, theory and practice are the same. In practice, they\u2019re not."
+  },
+  "about": {
+    "heading": "About",
+    "summary": "Computer Engineering student specializing in IoT and Embedded Systems at the Faculty of Sciences of Tunis. Freelance developer with hands-on experience in AI workflows, full-stack web development, cloud infrastructure, and embedded systems.",
+    "spokenLanguages": "Languages"
+  },
+  "skills": {
+    "heading": "Skills",
+    "categories": {
+      "languages": "Programming Languages",
+      "ai": "AI & Agents",
+      "embedded": "Embedded & IoT",
+      "frontend": "Frontend",
+      "backend": "Backend & Databases",
+      "cloud": "Cloud & DevOps",
+      "security": "Security & Networking"
+    }
+  },
+  "experience": {
+    "heading": "Experience",
+    "nextStepIT": {
+      "description": "Graduation project intern at NEXT STEP IT. Built vMigrate — an intelligent VM migration prediction system using XGBoost and SHAP for explainability, deployed on OpenShift with KubeVirt, with a React + FastAPI interface."
+    },
+    "upwork": {
+      "description": "Freelance full-stack developer on Upwork. Delivered client projects using React, Vite, TanStack, Tailwind CSS, Flask, Django, and PHP."
+    },
+    "triWeb": {
+      "description": "Summer internship at TriWeb (Charguia 2). Gained hands-on experience in a professional development environment."
+    }
+  },
+  "leadership": {
+    "heading": "Leadership",
+    "ieee": {
+      "description": "Served as Chairperson of the IEEE MTTS Chapter at ESPRIT Student Branch, leading technical events and workshops."
+    },
+    "gdsc": {
+      "description": "Marketing Manager and active member at GDSC FSS and GDSC FST, promoting developer community events."
+    },
+    "volunteer": {
+      "description": "Community volunteer with Alert International, JCI, Youth Club, and Spark Engineer ENIS."
+    }
+  },
+  "education": {
+    "heading": "Education",
+    "fst": {
+      "description": "Bachelor\u2019s degree in Computer Engineering with a specialization in IoT and Embedded Systems."
+    },
+    "lycee": {
+      "description": "Baccalaureate in Information Technology."
+    }
+  },
+  "awards": {
+    "heading": "Awards"
+  },
+  "projects": {
+    "heading": "Projects",
+    "filters": {
+      "all": "All",
+      "iot": "IoT",
+      "aiml": "AI / ML",
+      "fullstack": "Full-Stack",
+      "tools": "Tools",
+      "devops": "DevOps / Cloud"
+    },
+    "portfolio-app": {
+      "description": "Personal portfolio website built with Next.js, TypeScript, GSAP, and Framer Motion. Single-page, bilingual (EN/FR), and fully responsive.",
+      "bannerAlt": "Portfolio App project banner"
+    },
+    "sentinel-ai": {
+      "description": "AI-powered triage engine written in Go. Automatically classifies and prioritizes low-quality content for review pipelines.",
+      "bannerAlt": "Sentinel AI project banner"
+    },
+    "templatr": {
+      "description": "Python tool for generating print-ready document templates at scale. Supports batch processing and customizable layouts.",
+      "bannerAlt": "Templatr project banner"
+    },
+    "bookhaven": {
+      "description": "Full-stack web application for book discovery and management, built with vanilla HTML, CSS, and JavaScript.",
+      "bannerAlt": "BookHaven project banner"
+    },
+    "phishguard": {
+      "description": "Browser-based phishing detection and awareness tool. Helps users identify and avoid malicious links.",
+      "bannerAlt": "PhishGuard project banner"
+    },
+    "pfa-attendees": {
+      "description": "ESP32-based IoT attendance system for academic events. Uses embedded hardware, sensors, and real-time data logging.",
+      "bannerAlt": "PFA Attendees System project banner"
+    },
+    "smart-street-lighting": {
+      "description": "Intelligent street lighting system using ESP32 and MQTT. Lights adjust based on ambient conditions and motion detection.",
+      "bannerAlt": "Smart Street Lighting project banner"
+    },
+    "ieee-badge-writer": {
+      "description": "C#/.NET tool for writing and managing IEEE event badges. Forked and contributed to the ESPRIT IEEE Student Branch.",
+      "bannerAlt": "IEEE Badge Writer project banner"
+    },
+    "vmigrate": {
+      "description": "Intelligent VM migration prediction system using XGBoost and SHAP for explainability. Deployed on OpenShift with KubeVirt and a React + FastAPI interface.",
+      "bannerAlt": "vMigrate project banner"
+    },
+    "math-genius": {
+      "description": "Full-stack math learning platform built with React, Vite, TanStack, Tailwind CSS, and Flask. Delivered as a freelance project.",
+      "bannerAlt": "Math Genius project banner"
+    }
+  },
+  "certificates": {
+    "heading": "Certificates",
+    "modalClose": "Close certificate",
+    "nvidia-deep-learning": {
+      "title": "Fundamentals of Deep Learning",
+      "issuer": "NVIDIA"
+    },
+    "nmap-vulnerability": {
+      "title": "Vulnerability Scanning with Nmap",
+      "issuer": "Coursera"
+    },
+    "cpp-encryption": {
+      "title": "Encryption and Decryption using C++",
+      "issuer": "Coursera"
+    },
+    "cisco-networking-basics": {
+      "title": "Networking Basics",
+      "issuer": "Cisco"
+    },
+    "cisco-cybersecurity-intro": {
+      "title": "Introduction to Cybersecurity",
+      "issuer": "Cisco"
+    },
+    "cisco-iot-intro": {
+      "title": "Introduction to IoT",
+      "issuer": "Cisco"
+    },
+    "aws-route53": {
+      "title": "Creating Routing Policies with AWS Route53",
+      "issuer": "Coursera"
+    },
+    "aws-vpc": {
+      "title": "Create a Virtual Private Cloud Using AWS",
+      "issuer": "Coursera"
+    },
+    "linux-terminal": {
+      "title": "Getting Started with Linux Terminal",
+      "issuer": "Coursera"
+    },
+    "python-devops": {
+      "title": "Python Scripting for DevOps",
+      "issuer": "Coursera"
+    },
+    "google-css": {
+      "title": "Learn CSS",
+      "issuer": "Google Developer Program"
+    }
+  },
+  "contact": {
+    "heading": "Contact",
+    "github": "Visit GitHub",
+    "linkedin": "Visit LinkedIn",
+    "email": "Send email",
+    "phone": "Call",
+    "facebook": "Visit Facebook"
+  }
+}
