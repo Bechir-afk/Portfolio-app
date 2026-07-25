@@ -12,8 +12,8 @@
 |---|---|
 | **Phase** | 1 |
 | **Status** | Draft |
-| **Owner** | GLM 5.2 (sole project worker -- all phases) |
-| **Depends on** | Phase 0 (Foundation) complete: Next.js app running, dependencies installed, folder structure created, CSS variables and palette tokens defined. Phase 0 is also owned by GLM 5.2. |
+| **Owner** | Gemini 3.1 Pro |
+| **Depends on** | Phase 0 (Foundation) complete: Next.js app running, dependencies installed, folder structure created, CSS variables and palette tokens defined. |
 | **Constitution refs** | IV (Visual System), V (Interaction and Animation), IX (Accessibility), X (Performance) |
 
 ---
@@ -74,7 +74,7 @@ Deliver the global page shell and persistent interactive background that every s
 
 | ID | Requirement |
 |---|---|
-| FR-030 | Render the following symbols as DOM elements: `;` `{` `}` `=>` `//` `&&` `||` |
+| FR-030 | Render the following symbols as DOM elements: `;` `{` `}` `=>` `//` `&&` `\|\|` |
 | FR-031 | Each symbol must have a unique position, rotation (slight, organic), and size -- not arranged in a grid |
 | FR-032 | Symbols must be visibly colored using palette colors (`--accent`, `--accent-light`, `--text-dark` at reduced opacity) |
 | FR-033 | Include a set of smaller decorative code elements (same symbols, smaller font size, lower opacity) as the 4th background layer |
@@ -168,6 +168,7 @@ Deliver the global page shell and persistent interactive background that every s
 | GSAP registration | `gsap.registerPlugin(ScrollTrigger)` must be called once, in a client-side context (not during SSR). |
 | Next.js SSR safety | All GSAP and DOM-dependent code must be inside `useEffect` or `useLayoutEffect`, or guarded with `typeof window !== 'undefined'`. Components using GSAP must include `"use client"` directive. |
 | Hydration safety | Background item positions must be deterministic -- no `Math.random()` without a seed. Use a static array of pre-computed positions or a seeded PRNG. |
+| No `background-attachment: fixed` | Known to cause iOS Safari rendering glitches. Use a fixed-position element for any layered background effects instead. |
 
 ---
 
@@ -178,15 +179,14 @@ Deliver the global page shell and persistent interactive background that every s
 ```css
 /* Scrollbar hiding */
 html {
-  scrollbar-width: none;          /* Firefox */
-  -ms-overflow-style: none;       /* IE/Edge */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
 html::-webkit-scrollbar {
-  display: none;                  /* Chrome/Safari/Edge */
+  display: none;
 }
 
-/* Continuous 3-stop gradient: lighter at top/bottom, bluer in the middle.
-   background-attachment: fixed keeps it stable while scrolling. */
+/* Continuous gradient background */
 body {
   background: linear-gradient(
     180deg,
@@ -194,7 +194,6 @@ body {
     var(--bg-secondary) 50%,
     var(--bg-primary) 100%
   );
-  background-attachment: fixed;
   min-height: 100vh;
 }
 
@@ -243,7 +242,7 @@ app/[locale]/layout.tsx
 
 ### 8. Required Skills for Worker
 
-GLM 5.2 is the sole worker for all project phases. For this spec, read and apply the following skill files before implementation:
+Read and apply the following skill files before implementation:
 
 | Skill | Path | Why |
 |---|---|---|
@@ -252,18 +251,8 @@ GLM 5.2 is the sole worker for all project phases. For this spec, read and apply
 | **gsap-react** | `skills/gsap-react/SKILL.md` | `useGSAP` hook, `gsap.context()` for React cleanup, ref-based element selection |
 | **gsap-performance** | `skills/gsap-performance/SKILL.md` | Prefer transforms, `will-change`, avoid layout thrashing, batching |
 
-**Additional knowledge required:**
-- Next.js App Router: `"use client"` directive, `layout.tsx` vs `page.tsx`, SSR safety
-- CSS: `position: fixed`, `backdrop-filter`, `pointer-events`, `scrollbar-width`, custom properties
-- React: `useRef` for mutable values without re-render, `useEffect` cleanup, `useCallback`
-- `requestAnimationFrame` pattern for continuous mouse tracking
-- Hydration-safe deterministic positioning (no random values during SSR)
-
 ---
 
 ### 9. Out of Scope
 
-- Hero, quote, about, or any content section components (those are later specs)
-- Language toggle (Phase 2)
-- Liquid-glass component styling (applied per-component in later specs; the base `.glass` class may be defined in globals.css during Phase 0 but is not part of this spec)
-- Content rendering or data integration
+- Hero, quote, about, or any content secti
