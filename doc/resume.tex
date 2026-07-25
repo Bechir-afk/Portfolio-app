@@ -1,0 +1,165 @@
+% !TeX program = lualatex
+\documentclass[10pt,letterpaper]{article}
+
+\usepackage[top=0.35in, bottom=0.14in, left=0.54in, right=0.54in]{geometry}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\makeatletter
+\let\oldPackageError\PackageError
+\renewcommand{\PackageError}[3]{\typeout{Ignored Error from #1: #2}}
+\usepackage[colorlinks=true, urlcolor=black, linkcolor=black, citecolor=black]{hyperref}
+\let\PackageError\oldPackageError
+\makeatother
+\usepackage{parskip}
+\usepackage{fontspec}
+
+% Font: Arial to match the docx template
+\setmainfont{Arial}
+
+% Section headings: 11pt bold uppercase with a rule underneath
+\titleformat{\section}{\fontsize{11pt}{13pt}\bfseries\uppercase}{}{0em}{}[\titlerule]
+\titlespacing{\section}{0pt}{8pt}{4pt}
+
+% Disable paragraph indentation
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0pt}
+
+% Experience entry command: Position, Company (hfill) Date
+\newcommand{\experienceItem}[4]{%
+    \textbf{#1,} #2 \hfill \textit{#3 -- #4}\\*%
+}
+
+\begin{document}
+
+% --- Header (LEFT-ALIGNED per docx) ---
+{\fontsize{24.5pt}{29pt}\selectfont\textbf{BECHIR BEN RABIE}}\\[2pt]
+{\fontsize{11pt}{13pt}\selectfont COMPUTER ENGINEERING STUDENT}\\[2pt]
+{\fontsize{10pt}{12pt}\selectfont
+    \href{mailto:bachirbenrabia56@gmail.com}{bachirbenrabia56@gmail.com} | +216 21 277 855 | Tunis, Tunisia | \href{https://linkedin.com/in/bechir-ben-rabie}{linkedin.com/in/bechir-ben-rabie} | \href{https://github.com/Bechir-afk}{github.com/Bechir-afk}
+}
+
+\vspace{2pt}
+\noindent\rule{\textwidth}{0.4pt}
+
+% --- Summary ---
+\section*{SUMMARY}
+
+Computer Engineering student focused on AI workflows, embedded systems, cloud infrastructure, and full-stack web development. I enjoy taking on messy infrastructure problems and writing clean, straightforward code—whether that means orchestrating multi-agent AI systems, designing ESP32 sensor networks, or building an AI-powered OpenShift migration tool.
+
+% --- Professional Experience ---
+\section*{PROFESSIONAL EXPERIENCE}
+
+\experienceItem{Graduation Project Intern}{NEXT STEP IT}{Feb 2026}{May 2026}
+\begin{itemize}[leftmargin=*, noitemsep, topsep=0pt]
+    \item Built vMigrate, an AI tool that automates virtual machine migrations to Red Hat OpenShift using KubeVirt.
+    \item Wrote an XGBoost model to check if a VM is ready to migrate (98.3\% accuracy) and predict how long it will take (92.6\% accuracy).
+    \item Added SHAP so that when the AI makes a migration decision, the engineering team can actually see why.
+    \item Created a dashboard to monitor active migrations in real time, manage VM lifecycles, and handle automated rollbacks if things fail.
+    \item \textbf{Technologies:} Python, XGBoost, SHAP, React, FastAPI, OpenShift, KubeVirt, Docker, PostgreSQL
+\end{itemize}
+\vspace{4pt}
+
+\experienceItem{Freelance Developer}{Upwork}{March 2025}{Present}
+\begin{itemize}[leftmargin=*, noitemsep, topsep=0pt]
+    \item Built and shipped full-stack web apps for freelance clients, including custom platforms like \textit{Math Genius} and \textit{BookHeaven}.
+    \item Wrote fast, responsive frontends from scratch using React, Vite, TanStack, and Tailwind CSS.
+    \item Set up the backends and APIs using Python (Flask, Django) and PHP.
+\end{itemize}
+\vspace{4pt}
+
+\experienceItem{Summer Intern}{TriWeb (Charguia 2)}{June 2024}{July 2024}
+\begin{itemize}[leftmargin=*, noitemsep, topsep=0pt]
+    \item Set up a secure network infrastructure for an office of 80 workers, locking down access to internal and client-facing apps.
+    \item Hardened the servers to fix vulnerabilities and applied standard cybersecurity practices across the board.
+    \item Reconfigured routing to speed up data flow and prevent bottlenecks during peak office hours.
+\end{itemize}
+\vspace{4pt}
+
+% --- Projects ---
+\section*{PROJECTS}
+
+\experienceItem{\href{https://github.com/Bechir-afk/Sentinel-AI-Slop-Triage-Engine}{Sentinel AI Slop Triage Engine}}{Go, Docker, Gemini AI}{July 2026}{Present}
+\begin{itemize}[leftmargin=*, noitemsep, topsep=0pt]
+    \item Developed a Go webhook microservice to intercept GitHub Pull Requests and triage diffs using the Gemini 2.5 Flash model.
+    \item Engineered a distroless Docker deployment with zero external dependencies and full test coverage for high reliability.
+\end{itemize}
+\vspace{4pt}
+
+\experienceItem{\href{https://github.com/Bechir-afk/Templatr--Prints-Generator}{Templatr Prints Generator}}{Python}{July 2026}{Present}
+\begin{itemize}[leftmargin=*, noitemsep, topsep=0pt]
+    \item Built a Python desktop app that pulls data from a CSV to automatically design and generate up to 500 custom certificates.
+    \item Added a batch-email feature that sends them out automatically, saving my team at least 2 days of manual work per event.
+\end{itemize}
+\vspace{4pt}
+
+\experienceItem{\href{https://github.com/Bechir-afk/Intelligent_Street_Lighting}{Intelligent Street Lighting}}{ESP32, MQTT, Firebase, SQLite}{Dec 2025}{Present}
+\begin{itemize}[leftmargin=*, noitemsep, topsep=0pt]
+    \item Prototyped a smart city IoT architecture featuring an ESP32 master node controlling lamp slave nodes via MQTT (HiveMQ).
+    \item Designed a real-time web dashboard authenticated by Firebase, with secure backend logging via SQLite.
+\end{itemize}
+\vspace{4pt}
+
+\experienceItem{\href{https://github.com/Bechir-afk/PFA-Attandees-System}{PFA Attendees System}}{ESP32, RFID, Firebase}{March 2025}{Present}
+\begin{itemize}[leftmargin=*, noitemsep, topsep=0pt]
+    \item Developed an RFID-based attendance tracker using an ESP32 and MFRC522 sensor to log clock-in/out events to a Firebase Realtime Database.
+    \item Integrated an interactive hardware interface (LCD, LEDs, buzzer) alongside a live web dashboard for real-time attendance monitoring.
+\end{itemize}
+
+% --- Skills ---
+\section*{SKILLS}
+
+\begin{itemize}[leftmargin=*, noitemsep, topsep=0pt]
+    \item \textbf{Languages:} Python, JavaScript, PHP, C/C++, SQL, HTML/CSS
+    \item \textbf{AI \& Agents:} Multi-Agent Workflows, Task Delegation, Custom Agent Skills/Rules, XGBoost, Deep Learning
+    \item \textbf{Embedded Systems \& IoT:} ESP32, Arduino, Sensor Integration, Embedded Architecture, MQTT
+    \item \textbf{Frontend:} React, Vite, Tailwind CSS, TanStack
+    \item \textbf{Backend \& Cloud:} Flask, Django, FastAPI, AWS, Linux, Kubernetes, Docker, Firebase, PostgreSQL
+    \item \textbf{Security \& Networking:} Nmap, Vulnerability Scanning, Routing
+\end{itemize}
+
+% --- Education ---
+\section*{EDUCATION}
+
+\textbf{Bachelor's in Computer Engineering, IoT and Embedded Systems} \hfill \textit{June 2026}\\
+Faculty of Sciences of Tunis
+\begin{itemize}[leftmargin=*, noitemsep, topsep=0pt]
+    \item Relevant coursework: Embedded Systems, Networking, Cloud Computing, Machine Learning
+\end{itemize}
+\vspace{4pt}
+
+\textbf{Baccalaureate in Information Technology} \hfill \textit{2022}\\
+Lycée Hay Amal Fouchena, Tunis
+
+% --- Leadership & Volunteering ---
+\section*{LEADERSHIP \& VOLUNTEERING}
+
+\experienceItem{Chairperson}{IEEE MTTS Chapter-ESPRIT Student Branch}{Feb 2024}{Jan 2025}
+\begin{itemize}[leftmargin=*, noitemsep, topsep=0pt]
+    \item Partnered with IEEE WIE to run ``WIE Wave,'' bringing 120 attendees together for STEM diversity talks and hands-on workshops.
+    \item Helped organize the Tech Day Conference at SUP'COM, managing event logistics for 156 attendees.
+    \item Put together the ``RadioLink'' conference for 92 attendees to talk about new wireless networking tech.
+    \item Ran a hands-on cybersecurity workshop for 33 attendees at the Centre d'Informatique pour Enfants Ben Arous.
+\end{itemize}
+\vspace{4pt}
+
+\experienceItem{Marketing Manager \& Active Member}{GDSC FSS \& GDSC FST}{2023}{Present}
+\begin{itemize}[leftmargin=*, noitemsep, topsep=0pt]
+    \item Managed marketing initiatives for the Google Developer Student Clubs at the Faculty of Science Sfax (2023) and currently active at FST.
+\end{itemize}
+\vspace{4pt}
+
+\experienceItem{Community Volunteer}{Alert International, JCI, Youth Club, Spark Engineer ENIS}{Various}{}
+\begin{itemize}[leftmargin=*, noitemsep, topsep=0pt]
+    \item Active participant in social work, community organization, and technical networking across multiple local and international NGOs.
+\end{itemize}
+
+% --- Additional Information ---
+\section*{ADDITIONAL INFORMATION}
+
+\begin{itemize}[leftmargin=*, noitemsep, topsep=0pt]
+    \item \textbf{Languages:} English, Arabic (native), French (fluent)
+    \item \textbf{Certifications:} Fundamentals of Deep Learning (NVIDIA, 2025), Vulnerability Scanning with Nmap (Coursera, 2025), Encryption and Decryption using C++ (Coursera, 2025), Networking Basics (Cisco, 2025), Introduction to Cybersecurity (Cisco, 2025), Introduction to IoT (Cisco, 2025), Creating Routing Policies with AWS Route53 (Coursera, 2025), Create a Virtual Private Cloud Using AWS (Coursera, 2025), Getting Started with Linux Terminal (Coursera, 2025), Python Scripting for DevOps (Coursera, 2025), Learn CSS (Google Developer Program, 2025)
+    \item \textbf{Awards:} Winner of the Poster Challenge at the Tech Day Conference (2024)
+\end{itemize}
+
+\end{document}
