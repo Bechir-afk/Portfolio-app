@@ -1,14 +1,21 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
+import { resume } from '@/data/resume';
 
-// Spoken language data — label is a display string, level uses locale key
-const SPOKEN_LANGUAGES = [
-  { label: 'Arabic',  level: 'Native'       },
-  { label: 'French',  level: 'Proficient'   },
-  { label: 'English', level: 'Proficient'   },
-  { label: 'German',  level: 'Elementary'   },
-] as const;
+// Maps locale key suffix -> about.levels.* key
+const LEVEL_KEY: Record<string, 'native' | 'proficient' | 'elementary'> = {
+  arabic:  'native',
+  french:  'proficient',
+  english: 'proficient',
+};
+
+// Display label for each language (not translatable — language names are proper nouns)
+const LANGUAGE_LABEL: Record<string, string> = {
+  arabic:  'Arabic',
+  french:  'French',
+  english: 'English',
+};
 
 export default function SpokenLanguages() {
   const t = useTranslations('about');
@@ -36,9 +43,9 @@ export default function SpokenLanguages() {
           gap: '0.5rem',
         }}
       >
-        {SPOKEN_LANGUAGES.map(({ label, level }) => (
+        {resume.spokenLanguages.map((lang) => (
           <span
-            key={label}
+            key={lang}
             style={{
               display: 'inline-flex',
               alignItems: 'center',
@@ -52,8 +59,12 @@ export default function SpokenLanguages() {
               color: 'var(--text-dark)',
             }}
           >
-            <strong style={{ color: 'var(--accent)' }}>{label}</strong>
-            <span style={{ opacity: 0.6 }}>{level}</span>
+            <strong style={{ color: 'var(--accent)' }}>
+              {LANGUAGE_LABEL[lang] ?? lang}
+            </strong>
+            <span style={{ opacity: 0.6 }}>
+              {t(`levels.${LEVEL_KEY[lang] ?? 'proficient'}`)}
+            </span>
           </span>
         ))}
       </div>
