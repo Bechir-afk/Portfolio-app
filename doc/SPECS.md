@@ -255,4 +255,436 @@ Read and apply the following skill files before implementation:
 
 ### 9. Out of Scope
 
-- Hero, quote, about, or any content secti
+- Hero, quote, about, or any content sections
+- Project cards, certificate modal, contact section
+- Any SEO metadata or Open Graph tags
+- Vercel deployment configuration
+
+---
+
+## SPEC-002: Hero Section and Language Toggle
+
+| Field | Value |
+|---|---|
+| **Phase** | 2 |
+| **Status** | Implemented |
+| **Owner** | Gemini 3.1 Pro |
+| **Depends on** | SPEC-001 complete |
+| **Constitution refs** | IV, V, VI (Hero, Rotating Title), VIII (i18n), IX |
+
+---
+
+### 1. Objective
+
+Deliver the Hero section and the fixed language toggle. The Hero must display a free-floating portrait with a blue glow, a rotating title, the subject's name, and their location. The language toggle must switch the locale without a full page reload.
+
+---
+
+### 2. Deliverables
+
+| # | File | Purpose |
+|---|---|---|
+| D1 | `i18n/navigation.ts` | `createNavigation(routing)` exports for locale-aware routing |
+| D2 | `components/layout/LanguageToggle.tsx` | Fixed top-right EN/FR toggle |
+| D3 | `components/hero/FloatingPortrait.tsx` | `next/image` with priority, drop-shadow filter |
+| D4 | `components/hero/RotatingTitle.tsx` | GSAP infinite title crossfade loop |
+| D5 | `components/hero/Hero.tsx` | Full hero layout with entrance + scroll-exit animations |
+| D6 | `app/[locale]/page.tsx` | Wires Hero + LanguageToggle into the page |
+
+---
+
+### 3. Functional Requirements
+
+| ID | Requirement |
+|---|---|
+| FR-100 | Hero section fills at least 100vh |
+| FR-101 | Portrait rendered with `next/image`, `priority` prop enabled (LCP element) |
+| FR-102 | Portrait has no border, no clip-path, no frame, no card -- free-floating silhouette |
+| FR-103 | Portrait has a blue glow: `drop-shadow(0 0 20px rgba(80,125,188,0.5)) drop-shadow(0 0 60px rgba(161,198,234,0.3))` |
+| FR-104 | Rotating title loops infinitely through: "Computer Engineering Student" (`#507DBC`), "Freelance Developer by Day" (`#04080F`), "Gamer by Night" (`#A1C6EA`) |
+| FR-105 | Rotating title uses a fixed-height container to prevent layout shift during transitions |
+| FR-106 | Entrance animation: opacity 0 to 1, y 40 to 0, staggered, on page load |
+| FR-107 | Exit animation: scrub-based fade + y offset as hero scrolls out of viewport |
+| FR-108 | Language toggle is fixed at `top: 1.5rem; right: 1.5rem; z-index: 100` |
+| FR-109 | Language toggle uses `.glass` utility class |
+| FR-110 | Language toggle uses Phosphor `Translate` icon |
+| FR-111 | Locale switch calls `router.replace(pathname, { locale })` -- no full page reload |
+| FR-112 | All hero text consumed from `hero.*` locale keys |
+| FR-113 | `i18n/navigation.ts` exports `Link`, `redirect`, `usePathname`, `useRouter`, `getPathname` via `createNavigation(routing)` |
+
+---
+
+### 4. Non-Functional Requirements
+
+| ID | Requirement |
+|---|---|
+| NF-100 | All GSAP animations inside `useGSAP()` with `{ scope }` |
+| NF-101 | `gsap.matchMedia()` used for all motion, `return () => mm.revert()` cleanup |
+| NF-102 | `prefers-reduced-motion: reduce` path shows elements statically (no animation) |
+| NF-103 | No `window` access at module level -- SSR safe |
+| NF-104 | Portrait uses `sizes` prop for responsive image delivery |
+
+---
+
+### 5. Acceptance Criteria
+
+| # | Criterion |
+|---|---|
+| AC-100 | Portrait visible, no border/clip/frame, glowing blue |
+| AC-101 | Title rotates smoothly through all 3 identities, no layout shift |
+| AC-102 | Hero deconstructs (fades + rises) as it scrolls out of view |
+| AC-103 | Language toggle fixed top-right, glass style, switches locale without reload |
+| AC-104 | EN and FR locale keys display correctly for all hero text |
+| AC-105 | Production build passes |
+
+---
+
+## SPEC-003: Quote Section and About Section
+
+| Field | Value |
+|---|---|
+| **Phase** | 3 |
+| **Status** | Implemented |
+| **Owner** | Gemini 3.1 Pro |
+| **Depends on** | SPEC-002 complete |
+| **Constitution refs** | IV, V, VI (Quote, About and Skills), VIII, IX |
+
+---
+
+### 1. Objective
+
+Deliver the Quote block (glass card with word-by-word reveal) and the About section (heading, summary paragraph, spoken language chips). Both sections use `Section` wrapper for scroll entrance and consume all text from locale files.
+
+---
+
+### 2. Deliverables
+
+| # | File | Purpose |
+|---|---|---|
+| D1 | `components/quote/QuoteBlock.tsx` | Glass card, quote glyph, word-split GSAP stagger reveal |
+| D2 | `components/about/SpokenLanguages.tsx` | Pill chips for spoken languages with i18n level labels |
+| D3 | `components/about/AboutSection.tsx` | Heading + summary + SpokenLanguages, wrapped in Section |
+| D4 | `app/[locale]/page.tsx` | Wire Quote + About, remove placeholder-2 |
+
+---
+
+### 3. Functional Requirements
+
+| ID | Requirement |
+|---|---|
+| FR-200 | QuoteBlock renders inside a `.glass` card with `borderRadius: 1.25rem` |
+| FR-201 | Opening `"` glyph positioned absolute, large (`clamp(5rem, 10vw, 8rem)`), `color: var(--accent)`, `opacity: 0.18`, `aria-hidden="true"` |
+| FR-202 | Quote text in JetBrains Mono, italic, `color: var(--text-dark)` |
+| FR-203 | Quote text split into word-wrapped `<span data-word>` elements for GSAP stagger |
+| FR-204 | Words animate: opacity 0 to 1, y 20 to 0, stagger 0.035s, on scroll into view |
+| FR-205 | ScrollTrigger `toggleActions: 'play reverse play reverse'` |
+| FR-206 | AboutSection heading from `about.heading` locale key |
+| FR-207 | AboutSection summary paragraph from `about.summary` locale key |
+| FR-208 | SpokenLanguages section label from `about.spokenLanguages` locale key |
+| FR-209 | Proficiency level labels (`about.levels.native`, `about.levels.proficient`, `about.levels.elementary`) from locale files -- not hardcoded strings |
+| FR-210 | Language chips: pill border `1px solid rgba(80,125,188,0.4)`, glass background, mono font |
+| FR-211 | AboutSection wrapped in `<Section id="about">` for scroll entrance |
+
+---
+
+### 4. Non-Functional Requirements
+
+| ID | Requirement |
+|---|---|
+| NF-200 | `useGSAP({ scope })` on QuoteBlock |
+| NF-201 | `gsap.matchMedia()` + `return () => mm.revert()` cleanup |
+| NF-202 | `reduced-motion` path: `gsap.set(words, { opacity: 1, y: 0 })` |
+| NF-203 | No `window` at module level |
+
+---
+
+### 5. Acceptance Criteria
+
+| # | Criterion |
+|---|---|
+| AC-200 | Quote card visible, glass style, opening glyph decorative |
+| AC-201 | Words reveal staggered on scroll-in, reverse on scroll-up |
+| AC-202 | About heading + summary visible in EN and FR |
+| AC-203 | Spoken language chips display label + proficiency level in both locales |
+| AC-204 | Production build passes |
+
+---
+
+## SPEC-004: Skills, Timelines, and Awards
+
+| Field | Value |
+|---|---|
+| **Phase** | 4 |
+| **Status** | Approved |
+| **Owner** | Claude Opus 8 |
+| **Depends on** | SPEC-003 complete; `doc/resume.tex` present |
+| **Constitution refs** | II (No hardcoding), IV (Visual System), V (Animation), VI (About/Skills, Experience/Education), VIII (i18n), IX (Accessibility) |
+
+---
+
+### 1. Objective
+
+Populate `data/resume.ts` from `doc/resume.tex`, fix the `SpokenLanguages` i18n bug (hardcoded English level strings), implement categorized skill tags, a shared animated vertical timeline used for Experience, Education, and Leadership, and an Awards callout. After this phase the app shows the full professional profile from Hero through Awards.
+
+---
+
+### 2. Deliverables
+
+| # | File | Purpose |
+|---|---|---|
+| D1 | `data/resume.ts` | Fully populated from `resume.tex` -- profile, skills, experience, leadership, education, awards, contact |
+| D2 | `locales/en.json` | Add `about.levels.*`, `timeline.*` labels; verify all Phase 4 keys present |
+| D3 | `locales/fr.json` | Same additions in French |
+| D4 | `components/about/SpokenLanguages.tsx` | Fix: level labels from `about.levels.*` locale keys, not hardcoded strings |
+| D5 | `components/about/SkillTags.tsx` | Categorized liquid-glass skill chips, grouped by 6 categories |
+| D6 | `components/about/AboutSection.tsx` | Update: add `<SkillTags>` below spoken languages |
+| D7 | `components/timeline/TimelineItem.tsx` | Single timeline entry: date range, role/degree, company/institution, description, technology tags |
+| D8 | `components/timeline/Timeline.tsx` | Vertical timeline: SVG connector line drawn on scroll, staggered item reveals, Phosphor icon prop |
+| D9 | `components/awards/AwardsBlock.tsx` | Two-item award callout section |
+| D10 | `app/[locale]/page.tsx` | Wire SkillTags (inside AboutSection), Experience Timeline, Education Timeline, Leadership Timeline, AwardsBlock; remove placeholder-skills |
+
+---
+
+### 3. Data Requirements
+
+#### 3.1 `data/resume.ts` -- Exact values from `resume.tex`
+
+| Field | Value |
+|---|---|
+| `profile.name` | `'Bechir Ben Rabia'` |
+| `profile.location` | `'Tunis, Tunisia'` |
+| `profile.summaryKey` | `'about.summary'` |
+| `contact.email` | `'bachirbenrabia56@gmail.com'` |
+| `contact.phone` | `'+216 21 277 855'` |
+| `contact.socials[0]` | `{ platform: 'github', url: 'https://github.com/Bechir-afk' }` |
+| `contact.socials[1]` | `{ platform: 'linkedin', url: 'https://linkedin.com/in/bechir-ben-rabie' }` |
+| `contact.socials[2]` | `{ platform: 'facebook', url: 'https://www.facebook.com/bechir.benrabii.7/' }` |
+
+#### 3.2 Skills -- exact items from `resume.tex`
+
+| Category key | Items |
+|---|---|
+| `languages` | `['Python', 'JavaScript', 'PHP', 'C/C++', 'SQL', 'HTML/CSS']` |
+| `ai` | `['Multi-Agent Workflows', 'Task Delegation', 'Custom Agent Skills/Rules', 'XGBoost', 'Deep Learning']` |
+| `embedded` | `['ESP32', 'Arduino', 'Sensor Integration', 'Embedded Architecture', 'MQTT']` |
+| `frontend` | `['React', 'Vite', 'Tailwind CSS', 'TanStack']` |
+| `backend` | `['Flask', 'Django', 'FastAPI', 'AWS', 'Linux', 'Kubernetes', 'Docker', 'Firebase', 'PostgreSQL']` |
+| `security` | `['Nmap', 'Vulnerability Scanning', 'Routing']` |
+
+Note: TypeScript, Go, C# are confirmed by GitHub repos but are NOT in `resume.tex`. Do not add them to `data/resume.ts` skills array without user confirmation. They may be added in Phase 9 convergence review.
+
+#### 3.3 Experience -- exact values from `resume.tex`
+
+| Field | Entry 1 | Entry 2 | Entry 3 |
+|---|---|---|---|
+| `role` | `'Graduation Project Intern'` | `'Freelance Developer'` | `'Summer Intern'` |
+| `company` | `'NEXT STEP IT'` | `'Upwork'` | `'TriWeb (Charguia 2)'` |
+| `start` | `'Feb 2026'` | `'March 2025'` | `'June 2024'` |
+| `end` | `'May 2026'` | `'Present'` | `'July 2024'` |
+| `descKey` | `'experience.nextStepIT.description'` | `'experience.upwork.description'` | `'experience.triWeb.description'` |
+| `technologies` | `['Python','XGBoost','SHAP','React','FastAPI','OpenShift','KubeVirt','Docker','PostgreSQL']` | `['React','Vite','TanStack','Tailwind CSS','Flask','Django','PHP']` | `[]` |
+
+#### 3.4 Leadership -- exact values from `resume.tex`
+
+| Field | Entry 1 | Entry 2 | Entry 3 |
+|---|---|---|---|
+| `role` | `'Chairperson'` | `'Marketing Manager & Active Member'` | `'Community Volunteer'` |
+| `org` | `'IEEE MTTS Chapter-ESPRIT Student Branch'` | `'GDSC FSS & GDSC FST'` | `'Alert International, JCI, Youth Club, Spark Engineer ENIS'` |
+| `start` | `'Feb 2024'` | `'2023'` | `'Various'` |
+| `end` | `'Jan 2025'` | `'Present'` | `''` |
+| `descKey` | `'leadership.ieee.description'` | `'leadership.gdsc.description'` | `'leadership.volunteer.description'` |
+
+#### 3.5 Education -- exact values from `resume.tex`
+
+| Field | Entry 1 | Entry 2 |
+|---|---|---|
+| `degree` | `"Bachelor's in Computer Engineering, IoT and Embedded Systems"` | `'Baccalaureate in Information Technology'` |
+| `institution` | `'Faculty of Sciences of Tunis'` | `'Lycee Hay Amal Fouchena, Tunis'` |
+| `date` | `'June 2026'` | `'2022'` |
+| `descKey` | `'education.fst.description'` | `'education.lycee.description'` |
+| `coursework` | `['Embedded Systems','Networking','Cloud Computing','Machine Learning']` | `undefined` |
+
+#### 3.6 Awards -- exact values from `resume.tex`
+
+| Field | Entry 1 |
+|---|---|
+| `title` | `'Winner of the Poster Challenge'` |
+| `event` | `'Tech Day Conference'` |
+| `year` | `'2024'` |
+
+Note: Game Jam Tunis 2026 (2nd place) is listed in `IMPLEMENTATION_PLAN.md` but is **not** in `resume.tex`. Include it in `data/resume.ts` only with the following values, sourced from the plan:
+
+| Field | Entry 2 |
+|---|---|
+| `title` | `'2nd Place'` |
+| `event` | `'Game Jam Tunis 2026'` |
+| `year` | `'2026'` |
+
+---
+
+### 4. Locale Requirements
+
+#### 4.1 New keys to add to both `en.json` and `fr.json`
+
+**`about.levels`** (fixes SpokenLanguages i18n bug from Phase 3):
+
+```json
+"about": {
+  ...,
+  "levels": {
+    "native": "Native",
+    "proficient": "Proficient",
+    "elementary": "Elementary"
+  }
+}
+```
+
+French equivalents: `"Natif"`, `"Courant"`, `"Élémentaire"`
+
+**`awards.heading`** already exists. Add per-award keys:
+
+```json
+"awards": {
+  "heading": "Awards",
+  "posterChallenge": {
+    "title": "Winner of the Poster Challenge",
+    "event": "Tech Day Conference"
+  },
+  "gameJam": {
+    "title": "2nd Place",
+    "event": "Game Jam Tunis 2026"
+  }
+}
+```
+
+**`timeline`** section labels:
+
+```json
+"timeline": {
+  "present": "Present",
+  "experience": "Experience",
+  "education": "Education",
+  "leadership": "Leadership & Volunteering"
+}
+```
+
+All keys must be present in both `en.json` and `fr.json` before components consume them.
+
+---
+
+### 5. Functional Requirements
+
+#### 5.1 SkillTags (`components/about/SkillTags.tsx`)
+
+| ID | Requirement |
+|---|---|
+| FR-400 | Render all skills from `resume.skills` array |
+| FR-401 | Group by category; render category heading from `skills.categories.[key]` locale key |
+| FR-402 | Each skill item is a liquid-glass chip: `border: 1px solid rgba(80,125,188,0.35)`, `background: rgba(255,255,255,0.12)`, `borderRadius: 999px`, mono font, `fontSize: 0.82rem` |
+| FR-403 | Categories are separated by a visible label (small caps, accent color, mono font) |
+| FR-404 | On hover, chip border transitions to `rgba(80,125,188,0.6)` and `box-shadow` to `0 0 8px rgba(80,125,188,0.2)` -- CSS transition, no GSAP |
+| FR-405 | No animation on mount -- static render |
+| FR-406 | Chips wrap to multiple lines naturally (`flex-wrap: wrap`) |
+
+#### 5.2 TimelineItem (`components/timeline/TimelineItem.tsx`)
+
+| ID | Requirement |
+|---|---|
+| FR-410 | Accept props: `role: string`, `org: string`, `start: string`, `end: string`, `descKey: string`, `technologies?: string[]`, `icon: React.ReactNode` |
+| FR-411 | Display date range as `{start} — {end}` using `timeline.present` locale key when `end === 'Present'` |
+| FR-412 | Role displayed in bold, org in regular weight, both in `var(--text-dark)` |
+| FR-413 | Description consumed from locale via `descKey` |
+| FR-414 | Technologies (if provided) rendered as small flat chips below description: no border, `background: rgba(80,125,188,0.12)`, `borderRadius: 4px`, mono font, `fontSize: 0.75rem` |
+| FR-415 | Card uses `.glass` utility class |
+| FR-416 | Left side: icon (Phosphor, `size={20}`) in an accent-colored circle |
+
+#### 5.3 Timeline (`components/timeline/Timeline.tsx`)
+
+| ID | Requirement |
+|---|---|
+| FR-420 | Accept props: `items: TimelineEntry[]`, `icon: React.ReactNode`, `headingKey: string` |
+| FR-421 | Render section heading from `headingKey` locale key |
+| FR-422 | Render a vertical SVG connector line left-aligned, spanning the full list height |
+| FR-423 | SVG line drawn progressively on scroll using `stroke-dashoffset` animation via GSAP ScrollTrigger (`scrub: true`) |
+| FR-424 | Line reverses (un-draws) on scroll-up |
+| FR-425 | Timeline items stagger-reveal on scroll: opacity 0 to 1, x -20 to 0, stagger 0.1s |
+| FR-426 | Item reveal reverses on scroll-up (`toggleActions: 'play reverse play reverse'`) |
+| FR-427 | On mobile (< 640px): single column, connector line hidden |
+| FR-428 | `useGSAP({ scope })` with `gsap.matchMedia()` + `return () => mm.revert()` cleanup |
+| FR-429 | `reduced-motion` path: show all items and full line statically |
+
+#### 5.4 AwardsBlock (`components/awards/AwardsBlock.tsx`)
+
+| ID | Requirement |
+|---|---|
+| FR-430 | Render section heading from `awards.heading` locale key |
+| FR-431 | Render 2 award entries from `resume.awards` array |
+| FR-432 | Each entry: title from `awards.[key].title`, event from `awards.[key].event`, year plain string |
+| FR-433 | Each award entry uses `.glass` chip style with Phosphor `Trophy` icon in accent color |
+| FR-434 | Wrapped in `<Section id="awards">` for scroll entrance |
+
+#### 5.5 AboutSection update
+
+| ID | Requirement |
+|---|---|
+| FR-440 | Add `<SkillTags />` below `<SpokenLanguages />` inside `AboutSection` |
+| FR-441 | Section heading, summary, spoken languages, and skills all remain within the same `<Section id="about">` scroll wrapper |
+
+#### 5.6 Page wiring (`app/[locale]/page.tsx`)
+
+| ID | Requirement |
+|---|---|
+| FR-450 | Remove `placeholder-skills` section |
+| FR-451 | Render Experience Timeline with Phosphor `Briefcase` icon, `headingKey: 'timeline.experience'` |
+| FR-452 | Render Education Timeline with Phosphor `GraduationCap` icon, `headingKey: 'timeline.education'` |
+| FR-453 | Render Leadership Timeline with Phosphor `UsersThree` icon, `headingKey: 'timeline.leadership'` |
+| FR-454 | Render `<AwardsBlock />` after Leadership |
+| FR-455 | Add one placeholder `<Section id="placeholder-projects">` as the final child (removed in Phase 5/6) |
+
+---
+
+### 6. Non-Functional Requirements
+
+| ID | Requirement |
+|---|---|
+| NF-400 | All data in `data/resume.ts` -- no CV content in component files |
+| NF-401 | All user-facing strings in locale files -- no hardcoded English or French in components |
+| NF-402 | `data/resume.ts` must pass TypeScript strict mode with the existing `Resume` interface |
+| NF-403 | Timeline SVG line drawn with `stroke-dasharray` + `stroke-dashoffset` -- no JS width/height calculation |
+| NF-404 | Animate only `opacity`, `transform` (`translateX`, `translateY`), and SVG `stroke-dashoffset` |
+| NF-405 | All GSAP cleanup via `return () => mm.revert()` inside `useGSAP` |
+| NF-406 | No new dependencies -- use existing stack (GSAP, Framer Motion, Phosphor, next-intl) |
+| NF-407 | Mobile layout: timeline single-column, skill chips wrap, awards chips wrap |
+
+---
+
+### 7. Acceptance Criteria
+
+| # | Criterion | Verification |
+|---|---|---|
+| AC-400 | `data/resume.ts` values match `doc/resume.tex` exactly | Side-by-side diff |
+| AC-401 | `SpokenLanguages` proficiency labels translate correctly in FR mode | Toggle locale, verify chips show French levels |
+| AC-402 | All 6 skill categories render with correct items and translated headings | EN + FR visual check |
+| AC-403 | Timeline connector line draws progressively on scroll-down | Scroll test |
+| AC-404 | Timeline connector line reverses on scroll-up | Scroll back up test |
+| AC-405 | Timeline items stagger in from the left on scroll-down | Scroll test |
+| AC-406 | Timeline items reverse on scroll-up | Scroll back up test |
+| AC-407 | Experience, Education, Leadership each use their correct Phosphor icon | Visual inspection |
+| AC-408 | Timeline descriptions display in both EN and FR | Locale toggle test |
+| AC-409 | Awards section shows 2 entries with Trophy icon, glass chips | Visual inspection |
+| AC-410 | No hardcoded English strings remain in any Phase 4 component | Code review |
+| AC-411 | On mobile (< 640px): timeline is single-column, connector line hidden | Responsive mode test |
+| AC-412 | `prefers-reduced-motion`: all items visible statically, no line draw animation | DevTools toggle |
+| AC-413 | TypeScript strict mode passes (`npx tsc --noEmit`) | CLI verification |
+| AC-414 | Production build passes (`npm run build`) | CLI verification |
+
+---
+
+### 8. Out of Scope
+
+- Projects section (Phase 6)
+- Certificates section (Phase 7)
+- Contact section (Phase 8)
+- `data/projects.ts` and `data/certificates.ts` population
+- Any banner image generation
+- CodeVisual component for Quote right side (deferred -- no right-side visual was implemented in Phase 3; to be addressed in convergence review Phase 9)
