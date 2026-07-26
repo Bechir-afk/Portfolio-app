@@ -32,21 +32,25 @@ export interface KeywordItem {
   depthFactor: number;
   color: string;
   id: string;
+  mobileHidden: boolean;
 }
 
-export function getTechKeywords(isMobile: boolean): KeywordItem[] {
-  const data = isMobile ? KEYWORDS_DATA.slice(0, 6) : KEYWORDS_DATA;
-  return data.map(([keyword, x, y, rotation, fontSize, opacity, depthFactor], i) => ({
-    keyword,
-    x,
-    y,
-    rotation,
-    fontSize,
-    opacity,
-    depthFactor,
-    color: KW_COLORS[i] ?? '#507DBC',
-    id: `kw-${i}`,
-  }));
+export function getTechKeywords(): KeywordItem[] {
+  return KEYWORDS_DATA.map(([keyword, x, y, rotation, fontSize, opacity, depthFactor], i) => {
+    const mobileHidden = i >= Math.floor(KEYWORDS_DATA.length / 2);
+    return {
+      keyword,
+      x,
+      y,
+      rotation,
+      fontSize,
+      opacity,
+      depthFactor,
+      color: KW_COLORS[i] ?? '#507DBC',
+      id: `kw-${i}`,
+      mobileHidden,
+    };
+  });
 }
 
 interface Props {
@@ -63,7 +67,7 @@ export default function TechKeywords({ items, refs }: Props) {
           ref={(el) => {
             if (refs.current) refs.current[i] = el;
           }}
-          className="bg-item"
+          className={`bg-item ${item.mobileHidden ? 'max-sm:hidden' : ''}`}
           style={{
             left:       `${item.x}%`,
             top:        `${item.y}%`,

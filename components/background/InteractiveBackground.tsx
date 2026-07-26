@@ -12,20 +12,10 @@ gsap.registerPlugin(ScrollTrigger);
 
 type BgItem = SymbolItem | KeywordItem;
 
-function isMobileViewport(): boolean {
-  if (typeof window === 'undefined') return false;
-  return window.innerWidth < BREAKPOINTS.mobile;
-}
-
 export default function InteractiveBackground() {
-  // ─── Detect mobile on first render (client-side only) ─────────────────────
-  const isMobile = typeof window !== 'undefined'
-    ? window.innerWidth < BREAKPOINTS.mobile
-    : false;
-
-  // ─── Static item lists ────────────────────────────────────────────────────
-  const symbolItems  = useMemo(() => getCodeSymbols(isMobile),  [isMobile]);
-  const keywordItems = useMemo(() => getTechKeywords(isMobile), [isMobile]);
+  // ─── Static item lists (always full size for hydration safety) ─────────────
+  const symbolItems  = useMemo(() => getCodeSymbols(),  []);
+  const keywordItems = useMemo(() => getTechKeywords(), []);
 
   // All items combined for unified parallax processing
   const allItems: BgItem[] = useMemo(

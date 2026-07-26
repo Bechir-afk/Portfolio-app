@@ -68,7 +68,7 @@ Deliver the global page shell and persistent interactive background that every s
 | FR-022 | Set `pointer-events: none` on the container and all children -- background must never intercept clicks |
 | FR-023 | Contain 4 logical layers: (1) base gradient (CSS, not a layer component), (2) `CodeSymbols`, (3) `TechKeywords`, (4) small decorative code elements (can be part of `CodeSymbols` with a size variant) |
 | FR-024 | **Item counts (desktop):** ~15-20 large coding symbols, ~10-12 tech keywords, ~20-25 small decorative elements. Total ~50 items. |
-| FR-025 | **Item counts (mobile < 640px):** Reduce all counts by at least 50%. Total ~25 items. |
+| FR-025 | **Item counts (mobile < 640px):** Reduce all counts by at least 50%. Total ~25 items. Must be implemented in a hydration-safe way (e.g., render a stable default count on server, adjust after mount, or use CSS media queries) to avoid `window.innerWidth` mismatch on first render. |
 
 #### 3.4 Code Symbols (`CodeSymbols.tsx`)
 
@@ -113,7 +113,7 @@ Deliver the global page shell and persistent interactive background that every s
 
 | ID | Requirement |
 |---|---|
-| FR-070 | Accept `children`, optional `id` (for anchor linking), and optional `className` |
+| FR-070 | Accept `children`, optional `id` (for anchor linking), optional `className`, and optional `style` (`React.CSSProperties`) |
 | FR-071 | Apply a GSAP ScrollTrigger-based entrance animation (opacity + translateY) when scrolling down |
 | FR-072 | Reverse/deconstruct the animation when scrolling back up (use `toggleActions: "play reverse play reverse"`) |
 | FR-073 | Use `gsap.context()` for cleanup on unmount |
@@ -167,7 +167,7 @@ Deliver the global page shell and persistent interactive background that every s
 | No React state for continuous motion | Mouse position stored in `useRef`. Transforms applied via direct ref manipulation or GSAP. |
 | GSAP registration | `gsap.registerPlugin(ScrollTrigger)` must be called once, in a client-side context (not during SSR). |
 | Next.js SSR safety | All GSAP and DOM-dependent code must be inside `useEffect` or `useLayoutEffect`, or guarded with `typeof window !== 'undefined'`. Components using GSAP must include `"use client"` directive. |
-| Hydration safety | Background item positions must be deterministic -- no `Math.random()` without a seed. Use a static array of pre-computed positions or a seeded PRNG. |
+| Hydration safety | Background item positions must be deterministic -- no `Math.random()` without a seed. Use a static array of pre-computed positions or a seeded PRNG. Avoid viewport-dependent branching (like `window.innerWidth`) during initial render to prevent hydration mismatches. |
 | No `background-attachment: fixed` | Known to cause iOS Safari rendering glitches. Use a fixed-position element for any layered background effects instead. |
 
 ---

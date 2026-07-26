@@ -66,23 +66,31 @@ export interface SymbolItem {
   depthFactor: number;
   color: string;
   id: string;
+  mobileHidden: boolean;
 }
 
-export function getCodeSymbols(isMobile: boolean): SymbolItem[] {
-  const large = isMobile ? LARGE_SYMBOLS.slice(0, 9) : LARGE_SYMBOLS;
-  const small = isMobile ? SMALL_SYMBOLS.slice(0, 12) : SMALL_SYMBOLS;
-  const all = [...large, ...small];
-  return all.map(([symbol, x, y, rotation, scale, opacity, depthFactor], i) => ({
-    symbol,
-    x,
-    y,
-    rotation,
-    scale,
-    opacity,
-    depthFactor,
-    color: COLORS[COLOR_CYCLE[i % COLOR_CYCLE.length] ?? 0] ?? '#507DBC',
-    id: `sym-${i}`,
-  }));
+export function getCodeSymbols(): SymbolItem[] {
+  const all = [...LARGE_SYMBOLS, ...SMALL_SYMBOLS];
+  return all.map(([symbol, x, y, rotation, scale, opacity, depthFactor], i) => {
+    // Hide roughly half the items on mobile for performance
+    const isLarge = i < LARGE_SYMBOLS.length;
+    const indexInGroup = isLarge ? i : i - LARGE_SYMBOLS.length;
+    const groupLen = isLarge ? LARGE_SYMBOLS.length : SMALL_SYMBOLS.length;
+    const mobileHidden = indexInGroup >= Math.floor(groupLen / 2);
+
+    return {
+      symbol,
+      x,
+      y,
+      rotation,
+      scale,
+      opacity,
+      depthFactor,
+      color: COLORS[COLOR_CYCLE[i % COLOR_CYCLE.length] ?? 0] ?? '#507DBC',
+      id: `sym-${i}`,
+      mobileHidden,
+    };
+  });
 }
 
 interface Props {
@@ -99,7 +107,7 @@ export default function CodeSymbols({ items, refs }: Props) {
           ref={(el) => {
             if (refs.current) refs.current[i] = el;
           }}
-          className="bg-item"
+          className={`bg-item ${item.mobileHidden ? 'max-sm:hidden' : ''}`}
           style={{
             left:      `${item.x}%`,
             top:       `${item.y}%`,
