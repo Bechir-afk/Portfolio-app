@@ -3,11 +3,14 @@ import LanguageToggle from '@/components/layout/LanguageToggle';
 import Section from '@/components/layout/Section';
 import QuoteBlock from '@/components/quote/QuoteBlock';
 import AboutSection from '@/components/about/AboutSection';
+import Timeline from '@/components/timeline/Timeline';
+import AwardsBlock from '@/components/awards/AwardsBlock';
+import { resume } from '@/data/resume';
+import { Briefcase, GraduationCap, UsersThree } from '@phosphor-icons/react/dist/ssr';
 
 /**
- * Phase 3 page — Hero + Quote + About live.
- * One placeholder section remains for scroll testing below About.
- * Replaced in Phase 4 (Skills) onwards.
+ * Phase 4 page — Hero + Quote + About (with Skills) + Timelines + Awards live.
+ * placeholder-projects remains for scroll testing; removed in Phase 5/6.
  */
 export default function HomePage() {
   return (
@@ -15,7 +18,7 @@ export default function HomePage() {
       <LanguageToggle />
       <Hero />
 
-      {/* Quote — centred, full-width section with glass card */}
+      {/* Quote */}
       <Section
         id="quote"
         style={{
@@ -28,12 +31,36 @@ export default function HomePage() {
         <QuoteBlock />
       </Section>
 
-      {/* About — summary + spoken language chips */}
+      {/* About — summary + spoken languages + skill tags */}
       <AboutSection />
 
-      {/* Placeholder — removed in Phase 4 */}
+      {/* Experience Timeline (FR-451) */}
+      <Timeline
+        items={resume.experience}
+        icon={<Briefcase size={20} weight="bold" />}
+        headingKey="timeline.experience"
+      />
+
+      {/* Education Timeline (FR-452) */}
+      <Timeline
+        items={resume.education}
+        icon={<GraduationCap size={20} weight="bold" />}
+        headingKey="timeline.education"
+      />
+
+      {/* Leadership Timeline (FR-453) */}
+      <Timeline
+        items={resume.leadership}
+        icon={<UsersThree size={20} weight="bold" />}
+        headingKey="timeline.leadership"
+      />
+
+      {/* Awards (FR-454) */}
+      <AwardsBlock />
+
+      {/* Placeholder — removed in Phase 5/6 (FR-455) */}
       <Section
-        id="placeholder-skills"
+        id="placeholder-projects"
         style={{
           minHeight: '40vh',
           display: 'flex',
@@ -47,7 +74,7 @@ export default function HomePage() {
           style={{ padding: '2rem 3rem', borderRadius: '1rem', maxWidth: 520 }}
         >
           <p style={{ fontFamily: 'var(--font-mono)', color: 'var(--accent)' }}>
-            Phase 4 — Skills section coming next.
+            Phase 5 — Projects section coming next.
           </p>
         </div>
       </Section>

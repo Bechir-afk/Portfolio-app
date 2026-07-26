@@ -3,6 +3,7 @@
 import { useTranslations } from 'next-intl';
 import Section from '@/components/layout/Section';
 import SpokenLanguages from './SpokenLanguages';
+import SkillTags from './SkillTags';
 
 export default function AboutSection() {
   const t = useTranslations('about');
@@ -47,6 +48,9 @@ export default function AboutSection() {
 
       {/* Spoken languages */}
       <SpokenLanguages />
+
+      {/* Categorised skill chips (FR-440, FR-441) */}
+      <SkillTags />
     </Section>
   );
 }
