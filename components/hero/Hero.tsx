@@ -11,18 +11,25 @@ import RotatingTitle from './RotatingTitle';
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
 export default function Hero() {
-  const t       = useTranslations('hero');
-  const heroRef = useRef<HTMLElement>(null);
+  const t          = useTranslations('hero');
+  const heroRef    = useRef<HTMLElement>(null);
+  const portraitRef = useRef<HTMLDivElement>(null);
+  const textRef    = useRef<HTMLDivElement>(null);
+  const locationRef = useRef<HTMLParagraphElement>(null);
+  const headingRef  = useRef<HTMLHeadingElement>(null);
 
   useGSAP(() => {
-    const el = heroRef.current;
-    if (!el) return;
+    const portrait = portraitRef.current;
+    const text     = textRef.current;
+    const heading  = headingRef.current;
+    const location = locationRef.current;
+    if (!portrait || !text || !heading || !location) return;
 
-    const animated = Array.from(el.querySelectorAll<HTMLElement>('[data-hero-anim]'));
+    const animated = [portrait, heading, location];
     const mm = gsap.matchMedia();
 
     mm.add('(prefers-reduced-motion: no-preference)', () => {
-      // ── Entrance: staggered fade + rise on page load ──────────────────────
+      // Entrance: staggered fade + rise on page load
       gsap.fromTo(
         animated,
         { opacity: 0, y: 40 },
@@ -35,13 +42,13 @@ export default function Hero() {
         }
       );
 
-      // ── Exit: scrub fade + rise as hero scrolls out of view ──────────────
+      // Exit: scrub fade + rise as hero scrolls out of view
       gsap.to(animated, {
         opacity: 0,
         y: -40,
         ease: 'none',
         scrollTrigger: {
-          trigger: el,
+          trigger: heroRef.current,
           start: 'bottom 70%',
           end:   'bottom top',
           scrub: true,
@@ -71,9 +78,9 @@ export default function Hero() {
         padding: '2rem',
       }}
     >
-      {/* ── Portrait ── */}
+      {/* Portrait */}
       <div
-        data-hero-anim
+        ref={portraitRef}
         style={{
           display: 'flex',
           justifyContent: 'center',
@@ -83,9 +90,9 @@ export default function Hero() {
         <FloatingPortrait />
       </div>
 
-      {/* ── Text ── */}
+      {/* Text */}
       <div
-        data-hero-anim
+        ref={textRef}
         style={{
           display: 'flex',
           flexDirection: 'column',
@@ -93,7 +100,7 @@ export default function Hero() {
         }}
       >
         <h1
-          data-hero-anim
+          ref={headingRef}
           style={{
             fontFamily: 'var(--font-sans)',
             fontSize: 'clamp(2.6rem, 6vw, 4.8rem)',
@@ -108,7 +115,7 @@ export default function Hero() {
         <RotatingTitle />
 
         <p
-          data-hero-anim
+          ref={locationRef}
           style={{
             fontFamily: 'var(--font-mono)',
             fontSize: 'clamp(0.9rem, 1.5vw, 1.1rem)',

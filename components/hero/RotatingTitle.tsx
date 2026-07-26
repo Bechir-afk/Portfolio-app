@@ -47,14 +47,15 @@ export default function RotatingTitle() {
             next,
             { opacity: 0, yPercent: 100 },
             { opacity: 1, yPercent: 0, duration: 0.4, ease: 'power2.inOut' },
-            '<' // overlap with exit
+            '<'
           );
       });
     });
 
     mm.add('(prefers-reduced-motion: reduce)', () => {
-      // Show all titles stacked — user can read, no motion
-      gsap.set(items, { clearProps: 'all' });
+      // Show only first title statically — no motion, no stacking
+      gsap.set(items, { opacity: 0, yPercent: 0 });
+      gsap.set(items[0]!, { opacity: 1 });
     });
 
     return () => mm.revert();
