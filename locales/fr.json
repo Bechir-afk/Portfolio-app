@@ -18,7 +18,12 @@
   "about": {
     "heading": "\u00c0 propos",
     "summary": "\u00c9tudiant en G\u00e9nie Informatique sp\u00e9cialis\u00e9 en IoT et Syst\u00e8mes Embarqu\u00e9s \u00e0 la Facult\u00e9 des Sciences de Tunis. D\u00e9veloppeur freelance avec une exp\u00e9rience concr\u00e8te en flux IA, d\u00e9veloppement web full-stack, infrastructure cloud et syst\u00e8mes embarqu\u00e9s.",
-    "spokenLanguages": "Langues"
+    "spokenLanguages": "Langues",
+    "levels": {
+      "native": "Natif",
+      "proficient": "Courant",
+      "elementary": "\u00c9l\u00e9mentaire"
+    }
   },
   "skills": {
     "heading": "Comp\u00e9tences",
@@ -65,8 +70,22 @@
       "description": "Baccalaur\u00e9at en Informatique."
     }
   },
+  "timeline": {
+    "present": "Pr\u00e9sent",
+    "experience": "Exp\u00e9rience",
+    "education": "Formation",
+    "leadership": "Leadership & B\u00e9n\u00e9volat"
+  },
   "awards": {
-    "heading": "R\u00e9compenses"
+    "heading": "R\u00e9compenses",
+    "posterChallenge": {
+      "title": "Laur\u00e9at du Poster Challenge",
+      "event": "Tech Day Conference"
+    },
+    "gameJam": {
+      "title": "2\u00e8me Place",
+      "event": "Game Jam Tunis 2026"
+    }
   },
   "projects": {
     "heading": "Projets",

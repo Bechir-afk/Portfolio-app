@@ -18,7 +18,12 @@
   "about": {
     "heading": "About",
     "summary": "Computer Engineering student specializing in IoT and Embedded Systems at the Faculty of Sciences of Tunis. Freelance developer with hands-on experience in AI workflows, full-stack web development, cloud infrastructure, and embedded systems.",
-    "spokenLanguages": "Languages"
+    "spokenLanguages": "Languages",
+    "levels": {
+      "native": "Native",
+      "proficient": "Proficient",
+      "elementary": "Elementary"
+    }
   },
   "skills": {
     "heading": "Skills",
@@ -35,7 +40,7 @@
   "experience": {
     "heading": "Experience",
     "nextStepIT": {
-      "description": "Graduation project intern at NEXT STEP IT. Built vMigrate — an intelligent VM migration prediction system using XGBoost and SHAP for explainability, deployed on OpenShift with KubeVirt, with a React + FastAPI interface."
+      "description": "Graduation project intern at NEXT STEP IT. Built vMigrate \u2014 an intelligent VM migration prediction system using XGBoost and SHAP for explainability, deployed on OpenShift with KubeVirt, with a React + FastAPI interface."
     },
     "upwork": {
       "description": "Freelance full-stack developer on Upwork. Delivered client projects using React, Vite, TanStack, Tailwind CSS, Flask, Django, and PHP."
@@ -65,8 +70,22 @@
       "description": "Baccalaureate in Information Technology."
     }
   },
+  "timeline": {
+    "present": "Present",
+    "experience": "Experience",
+    "education": "Education",
+    "leadership": "Leadership & Volunteering"
+  },
   "awards": {
-    "heading": "Awards"
+    "heading": "Awards",
+    "posterChallenge": {
+      "title": "Winner of the Poster Challenge",
+      "event": "Tech Day Conference"
+    },
+    "gameJam": {
+      "title": "2nd Place",
+      "event": "Game Jam Tunis 2026"
+    }
   },
   "projects": {
     "heading": "Projects",
