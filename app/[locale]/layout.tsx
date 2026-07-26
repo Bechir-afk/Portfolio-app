@@ -5,6 +5,7 @@ import { routing } from '@/i18n/routing';
 import { getMessages } from 'next-intl/server';
 import { GeistSans } from 'geist/font/sans';
 import { GeistMono } from 'geist/font/mono';
+import PageShell from '@/components/layout/PageShell';
 import '@/app/globals.css';
 
 export const metadata: Metadata = {
@@ -26,10 +27,16 @@ export default async function LocaleLayout({
   const messages = await getMessages();
 
   return (
-    <html lang={locale} className={`${GeistSans.variable} ${GeistMono.variable}`}>
+    <html
+      lang={locale}
+      className={`${GeistSans.variable} ${GeistMono.variable}`}
+    >
       <body>
         <NextIntlClientProvider messages={messages}>
-          {children}
+          {/* PageShell renders InteractiveBackground (fixed z-0) + children (z-10) */}
+          <PageShell>
+            {children}
+          </PageShell>
         </NextIntlClientProvider>
       </body>
     </html>
